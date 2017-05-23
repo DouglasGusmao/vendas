@@ -44,4 +44,8 @@ public class Produto {
 		return this.nomeImagem;
 	}
 
+	public void setNomeImagem(String nomeImagem) {
+		this.nomeImagem = nomeImagem;
+	}
+
 }
