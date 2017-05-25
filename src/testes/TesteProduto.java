@@ -11,6 +11,15 @@ public class TesteProduto {
 	@Test
 	public void inserir() {
 		
+		inserirProduto();
+		
+		int quantidadeRegistroTabela = new ProdutoDAO().listar().size();
+
+		Assert.assertEquals(1, quantidadeRegistroTabela);
+
+	}
+
+	private void inserirProduto() {
 		new ProdutoDAO().limparTabela();
 		
 		Produto produto = new Produto();
@@ -22,11 +31,6 @@ public class TesteProduto {
 
 		ProdutoDAO dao = new ProdutoDAO();
 		dao.inserir(produto);
-		
-		int quantidadeRegistroTabela = new ProdutoDAO().listar().size();
-
-		Assert.assertEquals(1, quantidadeRegistroTabela);
-
 	}
 
 	@Test
@@ -55,7 +59,7 @@ public class TesteProduto {
 	@Test
 	public void testeRemover() {
 
-		this.inserir();
+		this.inserirProduto();
 
 		new ProdutoDAO().remover(null, "Sitío do Pica-Pau Amarelo"); 
 
