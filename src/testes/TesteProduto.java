@@ -8,15 +8,11 @@ import org.junit.Assert;
 
 public class TesteProduto {
 
-	private void prepararCenario() {
-
-		new ProdutoDAO().limparTabela(); // remove todos os registros da tabela
-		this.inserir();// insere um registro na tabela
-	}
-
 	@Test
 	public void inserir() {
-
+		
+		new ProdutoDAO().limparTabela();
+		
 		Produto produto = new Produto();
 
 		produto.setTitulo("Sitío do Pica-Pau Amarelo");
@@ -26,18 +22,11 @@ public class TesteProduto {
 
 		ProdutoDAO dao = new ProdutoDAO();
 		dao.inserir(produto);
-	}
-
-	@Test
-	public void testeInserir() {
-
-		prepararCenario();
-
-		inserir();
-
+		
 		int quantidadeRegistroTabela = new ProdutoDAO().listar().size();
 
-		Assert.assertEquals(2, quantidadeRegistroTabela);
+		Assert.assertEquals(1, quantidadeRegistroTabela);
+
 	}
 
 	@Test
@@ -45,41 +34,33 @@ public class TesteProduto {
 
 		Produto produto;
 		List<Produto> listar;
-		String tituloAnterior;
-		String tituloPosterior;
-
-		prepararCenario();
+		String titulo;
+		String tituloAlterado;
 
 		listar = new ProdutoDAO().listar();
 		produto = listar.get(0);
-		tituloAnterior = produto.getTitulo();
-
+		
 		produto.setTitulo("Novo Titulo");
 		new ProdutoDAO().alterar(produto);
-
+		
+		titulo = "Novo Titulo";
+		
 		listar = new ProdutoDAO().listar();
 		produto = listar.get(0);
-		tituloPosterior = produto.getTitulo();
+		tituloAlterado = produto.getTitulo();
 
-		Assert.assertNotEquals(tituloAnterior, tituloPosterior);
+		Assert.assertEquals(titulo, tituloAlterado);
 	}
 
 	@Test
 	public void testeRemover() {
 
-		prepararCenario(); // irá inserir um contato da tabela com o nome
-							// Roberto
+		this.inserir();
 
-		new ProdutoDAO().remover(null, "Sitío do Pica-Pau Amarelo"); // remove o
-																		// único
-																		// registro
-																		// existente
-																		// na
-																		// tabela
+		new ProdutoDAO().remover(null, "Sitío do Pica-Pau Amarelo"); 
 
 		int quantidadeRegistroTabela = new ProdutoDAO().listar().size();
 
 		Assert.assertEquals(0, quantidadeRegistroTabela);
 	}
-
 }

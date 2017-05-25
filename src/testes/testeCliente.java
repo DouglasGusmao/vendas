@@ -6,15 +6,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import basicas.Cliente;
 import dao.ClienteDAO;
-import dao.ProdutoDAO;
 
 public class testeCliente {
-
-	private void prepararCenario() {
-
-		new ClienteDAO().limparTabela(); // remove todos os registros da tabela
-		this.inserir();// insere um registro na tabela
-	}
 
 	@Test
 	public void inserir() {
@@ -27,6 +20,10 @@ public class testeCliente {
 
 		ClienteDAO dao = new ClienteDAO();
 		dao.inserir(cliente);
+
+		int quantidadeRegistroTabela = new ClienteDAO().listar().size();
+
+		Assert.assertEquals(1, quantidadeRegistroTabela);
 	}
 
 	@Test
@@ -36,8 +33,6 @@ public class testeCliente {
 		List<Cliente> listar;
 		String nomeAnterior;
 		String nomePosterior;
-
-		prepararCenario();
 
 		listar = new ClienteDAO().listar();
 		cliente = listar.get(0);
@@ -56,15 +51,9 @@ public class testeCliente {
 	@Test
 	public void testeRemover() {
 
-		prepararCenario(); // irá inserir um contato da tabela com o nome
-							// Ruggery Gusmão
+		this.inserir();
 
-		new ClienteDAO().remover(null, "Ruggery Gusmão"); // remove o
-																		// único
-																		// registro
-																		// existente
-																		// na
-																		// tabela
+		new ClienteDAO().remover(null, "Ruggery Gusmão");
 
 		int quantidadeRegistroTabela = new ClienteDAO().listar().size();
 

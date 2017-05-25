@@ -131,9 +131,10 @@ public class ProdutoDAO {
 		try {
 			List<Produto> pesquisaProduto = new ArrayList<Produto>();
 
-			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM produto WHERE titulo=?");
+			PreparedStatement stmt = this.connection.prepareStatement("SELECT * FROM produto WHERE titulo like ? and preco=?");
 
-			stmt.setString(1, produto.getTitulo());
+			stmt.setString(1, "%" + produto.getTitulo() + "%");
+			stmt.setDouble(2, produto.getPreco());
 
 			ResultSet rs = stmt.executeQuery();
 

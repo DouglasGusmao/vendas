@@ -121,17 +121,4 @@ public class ClienteDAO {
 			throw new RuntimeException(e);
 		}
 	}
-
-	public void limparTabela() {
-
-		try {
-
-			PreparedStatement stmt = connection.prepareStatement("DELETE FROM cliente");
-			stmt.execute();
-			connection.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
 }
