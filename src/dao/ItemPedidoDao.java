@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import basicas.Cliente;
 import basicas.ItemPedido;
-import basicas.Produto;
 import util.ConnectionFactory;
 
 public class ItemPedidoDao {
@@ -89,23 +87,5 @@ public class ItemPedidoDao {
 		}
 	}
 	
-	//alterar
-	public void alterar(ItemPedido itemPedido) {
-
-		String sql = "UPDATE cliente SET nome=?, email=?, senha=? WHERE id=?";
-		PreparedStatement stmt;
-		try {
-			stmt = connection.prepareStatement(sql);
-
-			stmt.setDouble(1, itemPedido.getPrecoUnitario());
-			stmt.setInt(2, itemPedido.getQuantidade());
-			stmt.setDouble(3, itemPedido.getPrecoTotal());
-
-			stmt.execute();
-			connection.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
-	}
 	
 }//fim
